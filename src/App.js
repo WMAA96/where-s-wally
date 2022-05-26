@@ -9,9 +9,10 @@ function App() {
   const ref = useRef(null);
   const [userclick, setUserclick] = useState(false);
 
-  const [x, setX] = useState();
-
-  const [y, setY] = useState();
+  const [coords, setCoords] = useState({
+    x: 0,
+    y: 0,
+  });
 
   const [char, setChar] = useState([]);
 
@@ -23,19 +24,33 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log(x / ref.current.offsetWidth);
-    console.log(y / ref.current.offsetHeight);
-  }, [x]);
+    // * coords by 100, if its within 1 range e.g wally at 0.43 so 43 if its within 42-44 then works
+    //console.log(coords.y * 100);
+    //console.log(coords);
+  }, [coords]);
 
   const clicked = e => {
-    setX(e.pageX);
-    setY(e.pageY);
-
+    setCoords({
+      x: e.pageX / ref.current.offsetWidth,
+      y: e.pageY / ref.current.offsetHeight,
+    });
     setUserclick(!userclick);
   };
 
   const selected = e => {
-    console.log(e.target.value);
+    const found = char.find(cname => cname.name === e.target.value);
+
+    console.log(coords.y * 100);
+
+    if (
+      coords.x * 100 <= found.X + 1.5 &&
+      coords.x * 100 >= found.X - 1.5 &&
+      coords.y * 100 <= found.Y + 3 &&
+      coords.y * 100 >= found.Y - 3
+    ) {
+      console.log("hmm");
+    }
+
     setUserclick(!userclick);
   };
 
@@ -43,17 +58,17 @@ function App() {
     <div className="App">
       <Header />
       <div className="Main">
-        <div className="imageContainer">
-          <img
-            ref={ref}
-            className="wally"
-            src={background}
-            alt="sdf"
-            onClick={clicked}
-          />
+        <div className="imageContainer" ref={ref}>
+          <img className="wally" src={background} alt="sdf" onClick={clicked} />
           {userclick ? (
-            <div style={{ left: x, top: y }} className="dropdown">
-              <option onClick={selected} value="wally">
+            <div
+              style={{
+                left: coords.x * ref.current.offsetWidth,
+                top: coords.y * ref.current.offsetHeight,
+              }}
+              className="dropdown"
+            >
+              <option onClick={selected} value="Wally">
                 Wally
               </option>
               <option onClick={selected} value="Odlaw">
