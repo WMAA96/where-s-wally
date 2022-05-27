@@ -18,8 +18,9 @@ function App() {
 
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "Characters"), snapshot => {
-      setChar(snapshot.docs.map(doc => doc.data()));
+      setChar(snapshot.docs.map(doc => ({ ...doc.data(), found: false })));
     });
+
     return unsub;
   }, []);
 
@@ -27,7 +28,8 @@ function App() {
     // * coords by 100, if its within 1 range e.g wally at 0.43 so 43 if its within 42-44 then works
     //console.log(coords.y * 100);
     //console.log(coords);
-  }, [coords]);
+    console.log(char);
+  }, [char]);
 
   const clicked = e => {
     setCoords({
@@ -38,17 +40,16 @@ function App() {
   };
 
   const selected = e => {
-    const found = char.find(cname => cname.name === e.target.value);
-
-    console.log(coords.y * 100);
-
+    const selectedChar = char.find(cname => cname.name === e.target.value);
+    console.log(char);
     if (
-      coords.x * 100 <= found.X + 1.5 &&
-      coords.x * 100 >= found.X - 1.5 &&
-      coords.y * 100 <= found.Y + 3 &&
-      coords.y * 100 >= found.Y - 3
+      coords.x * 100 <= selectedChar.X + 1.5 &&
+      coords.x * 100 >= selectedChar.X - 1.5 &&
+      coords.y * 100 <= selectedChar.Y + 3 &&
+      coords.y * 100 >= selectedChar.Y - 3
     ) {
-      console.log("hmm");
+      console.log("FMM2");
+      selectedChar.found = true;
     }
 
     setUserclick(!userclick);

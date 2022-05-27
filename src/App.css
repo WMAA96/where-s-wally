@@ -12,6 +12,20 @@ body {
   padding: 0;
 }
 
+li {
+  display: inline;
+  justify-content: center;
+  color: white;
+  list-style: none;
+}
+
+.xx {
+  max-height: 8vh;
+  width: 100px;
+
+  border: 2px solid black;
+}
+
 .Main {
 }
 
@@ -19,7 +33,7 @@ body {
   background-color: red;
 }
 
-img {
+.wally {
   display: block;
   margin-left: auto;
   margin-right: auto;
