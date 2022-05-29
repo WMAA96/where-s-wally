@@ -4,7 +4,7 @@ body {
 
 .Header {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   min-height: 10vh;
   background: rgb(255, 44, 44);
   color: white;
@@ -19,10 +19,18 @@ li {
   list-style: none;
 }
 
-.xx {
+.characterList {
   max-height: 8vh;
   width: 100px;
+  z-index: 0;
+  border: 2px solid black;
+}
 
+.tick {
+  max-height: 8vh;
+  width: 100px;
+  position: absolute;
+  z-index: 1;
   border: 2px solid black;
 }
 

@@ -57,7 +57,7 @@ function App() {
 
   return (
     <div className="App">
-      <Header />
+      <Header char={char} />
       <div className="Main">
         <div className="imageContainer" ref={ref}>
           <img className="wally" src={background} alt="sdf" onClick={clicked} />
