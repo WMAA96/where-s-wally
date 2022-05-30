@@ -31,10 +31,11 @@ function Header(props) {
 
       <div className="timer">
         <h1 className="timer">Timer: {minute}m </h1>
-        {
-          // I want to pad a 0 here later}
-        }
-        <h1 className="timer">{timer}s</h1>
+
+        <h1 className="timer">
+          {timer < 10 ? 0 : null}
+          {timer}s
+        </h1>
       </div>
     </div>
   );

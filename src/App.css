@@ -14,13 +14,11 @@ body {
 }
 
 .aaa {
-  margin: 5px;
-  padding: 5px;
-  border: 5px;
 }
 
 .timer {
   display: inline-block;
+
   justify-content: center;
 }
 

@@ -16,7 +16,7 @@ function App() {
 
   const [char, setChar] = useState([]);
 
-  const [timer, setTimer] = useState(9);
+  const [timer, setTimer] = useState(59);
   const [minute, setMinute] = useState(0);
 
   useEffect(() => {
@@ -58,7 +58,7 @@ function App() {
       coords.y * 100 <= selectedChar.Y + 3 &&
       coords.y * 100 >= selectedChar.Y - 3
     ) {
-      console.log(timer);
+      console.log(minute + "m" + (timer < 10 ? "0" + timer : timer) + "s");
       selectedChar.found = true;
     }
 
