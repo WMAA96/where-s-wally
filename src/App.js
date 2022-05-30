@@ -16,6 +16,23 @@ function App() {
 
   const [char, setChar] = useState([]);
 
+  const [timer, setTimer] = useState(9);
+  const [minute, setMinute] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimer(timer => (parseFloat(timer) + 0.1).toFixed(1));
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (timer % 60 === 0 && timer !== 0) {
+      setTimer(0);
+      setMinute(minute => minute + 1);
+    }
+  }, [timer]);
+
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "Characters"), snapshot => {
       setChar(snapshot.docs.map(doc => ({ ...doc.data(), found: false })));
@@ -23,13 +40,6 @@ function App() {
 
     return unsub;
   }, []);
-
-  useEffect(() => {
-    // * coords by 100, if its within 1 range e.g wally at 0.43 so 43 if its within 42-44 then works
-    //console.log(coords.y * 100);
-    //console.log(coords);
-    console.log(char);
-  }, [char]);
 
   const clicked = e => {
     setCoords({
@@ -41,14 +51,14 @@ function App() {
 
   const selected = e => {
     const selectedChar = char.find(cname => cname.name === e.target.value);
-    console.log(char);
+
     if (
       coords.x * 100 <= selectedChar.X + 1.5 &&
       coords.x * 100 >= selectedChar.X - 1.5 &&
       coords.y * 100 <= selectedChar.Y + 3 &&
       coords.y * 100 >= selectedChar.Y - 3
     ) {
-      console.log("FMM2");
+      console.log(timer);
       selectedChar.found = true;
     }
 
@@ -57,7 +67,8 @@ function App() {
 
   return (
     <div className="App">
-      <Header char={char} />
+      <Header char={char} timer={timer} minute={minute} />
+
       <div className="Main">
         <div className="imageContainer" ref={ref}>
           <img className="wally" src={background} alt="sdf" onClick={clicked} />

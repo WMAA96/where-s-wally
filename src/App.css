@@ -4,12 +4,24 @@ body {
 
 .Header {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  align-items: center;
   min-height: 10vh;
   background: rgb(255, 44, 44);
   color: white;
   margin: 0;
   padding: 0;
+}
+
+.aaa {
+  margin: 5px;
+  padding: 5px;
+  border: 5px;
+}
+
+.timer {
+  display: inline-block;
+  justify-content: center;
 }
 
 li {
@@ -38,7 +50,7 @@ li {
 }
 
 .imageContainer {
-  background-color: red;
+  background: rgb(255, 44, 44);
 }
 
 .wally {
