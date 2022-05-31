@@ -1,5 +1,6 @@
 import "./App.css";
 import Header from "./Components/Header";
+import Highscores from "./Components/Highscores";
 import background from "./Assets/bg1.jpeg";
 import { useEffect, useState, useRef } from "react";
 import db from "./firebase";
@@ -19,12 +20,18 @@ function App() {
   const [timer, setTimer] = useState(59);
   const [minute, setMinute] = useState(0);
 
+  const [gameOver, setGameOver] = useState(false);
+
+  // sets the timer
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimer(timer => (parseFloat(timer) + 0.1).toFixed(1));
+      gameOver
+        ? clearInterval(interval)
+        : setTimer(timer => (parseFloat(timer) + 0.1).toFixed(1));
     }, 100);
+
     return () => clearInterval(interval);
-  }, []);
+  }, [gameOver]);
 
   useEffect(() => {
     if (timer % 60 === 0 && timer !== 0) {
@@ -33,9 +40,14 @@ function App() {
     }
   }, [timer]);
 
+  //grabs character locations and highscores
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "Characters"), snapshot => {
       setChar(snapshot.docs.map(doc => ({ ...doc.data(), found: false })));
+    });
+
+    const unsub1 = onSnapshot(collection(db, "Highscores"), snapshot => {
+      console.log(snapshot.docs.map(doc => doc.data()));
     });
 
     return unsub;
@@ -50,7 +62,8 @@ function App() {
   };
 
   const selected = e => {
-    const selectedChar = char.find(cname => cname.name === e.target.value);
+    const newChar = [...char];
+    const selectedChar = newChar.find(cname => cname.name === e.target.value);
 
     if (
       coords.x * 100 <= selectedChar.X + 1.5 &&
@@ -60,6 +73,11 @@ function App() {
     ) {
       console.log(minute + "m" + (timer < 10 ? "0" + timer : timer) + "s");
       selectedChar.found = true;
+
+      setChar(newChar);
+      if (newChar.filter(x => x.found === false).length === 0) {
+        setGameOver(true);
+      }
     }
 
     setUserclick(!userclick);
@@ -70,6 +88,7 @@ function App() {
       <Header char={char} timer={timer} minute={minute} />
 
       <div className="Main">
+        <Highscores gameOver={gameOver} />
         <div className="imageContainer" ref={ref}>
           <img className="wally" src={background} alt="sdf" onClick={clicked} />
           {userclick ? (
