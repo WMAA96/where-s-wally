@@ -17,7 +17,7 @@ function App() {
 
   const [char, setChar] = useState([]);
 
-  const [timer, setTimer] = useState(59);
+  const [timer, setTimer] = useState(9.1);
   const [minute, setMinute] = useState(0);
 
   const [gameOver, setGameOver] = useState(false);
@@ -31,7 +31,7 @@ function App() {
     }, 100);
 
     return () => clearInterval(interval);
-  }, [gameOver]);
+  });
 
   useEffect(() => {
     if (timer % 60 === 0 && timer !== 0) {
@@ -44,10 +44,6 @@ function App() {
   useEffect(() => {
     const unsub = onSnapshot(collection(db, "Characters"), snapshot => {
       setChar(snapshot.docs.map(doc => ({ ...doc.data(), found: false })));
-    });
-
-    const unsub1 = onSnapshot(collection(db, "Highscores"), snapshot => {
-      console.log(snapshot.docs.map(doc => doc.data()));
     });
 
     return unsub;
