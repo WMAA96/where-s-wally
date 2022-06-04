@@ -20,7 +20,7 @@ function App() {
   const [timer, setTimer] = useState(9.1);
   const [minute, setMinute] = useState(0);
 
-  const [gameOver, setGameOver] = useState(false);
+  const [gameOver, setGameOver] = useState(true);
 
   // sets the timer
   useEffect(() => {

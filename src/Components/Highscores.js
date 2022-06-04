@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 function Highscores(props) {
   const { gameOver } = props;
 
+  const [newHighscore, setNewHighscore] = useState(true);
+
   const [leaderboard, setLeaderboard] = useState([]);
 
   useEffect(() => {
@@ -30,26 +32,36 @@ function Highscores(props) {
       {gameOver ? (
         <div className="modal">
           <div className="modal-content">
-            <span className="close">x</span>
-            <h1>Leaderboard</h1>
-            <table>
-              <tbody>
-                <tr>
-                  <th>name</th>
-                  <th>Time</th>
-                </tr>
-                {leaderboard.map(score => {
-                  return (
+            {!newHighscore ? (
+              <div>
+                <span className="close">x</span>
+                <h1>Leaderboard</h1>
+                <table>
+                  <tbody>
                     <tr>
-                      <td>{score.name}</td>
-                      <td>
-                        {score.minute}m{score.seconds}s
-                      </td>
+                      <th>name</th>
+                      <th>Time</th>
                     </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                    {leaderboard.map(score => {
+                      return (
+                        <tr>
+                          <td>{score.name}</td>
+                          <td>
+                            {score.minute}m{score.seconds}s
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              // what returns if user breaks the highscore
+              <div>
+                <span className="close">x</span>
+                <h1>Congratulations, your score belongs in our highscores!</h1>
+              </div>
+            )}
           </div>
         </div>
       ) : null}
