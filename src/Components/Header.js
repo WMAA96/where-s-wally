@@ -11,7 +11,7 @@ function Header(props) {
       <ul>
         {char.map(char => {
           return (
-            <li>
+            <li key={char.name}>
               {char.found ? (
                 <img className="tick" src={tick} alt="sdf" />
               ) : null}

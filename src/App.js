@@ -17,10 +17,10 @@ function App() {
 
   const [char, setChar] = useState([]);
 
-  const [timer, setTimer] = useState(9.1);
-  const [minute, setMinute] = useState(0);
+  const [timer, setTimer] = useState(0);
+  const [minute, setMinute] = useState(1);
 
-  const [gameOver, setGameOver] = useState(true);
+  const [gameOver, setGameOver] = useState(false);
 
   // sets the timer
   useEffect(() => {
@@ -84,7 +84,7 @@ function App() {
       <Header char={char} timer={timer} minute={minute} />
 
       <div className="Main">
-        <Highscores gameOver={gameOver} />
+        <Highscores gameOver={gameOver} timer={timer} minute={minute} />
         <div className="imageContainer" ref={ref}>
           <img className="wally" src={background} alt="sdf" onClick={clicked} />
           {userclick ? (
