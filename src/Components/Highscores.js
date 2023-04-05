@@ -1,5 +1,6 @@
 import db from "../firebase";
 import {
+  updateDoc,
   collection,
   doc,
   onSnapshot,
@@ -18,6 +19,7 @@ function Highscores(props) {
 
   useEffect(() => {
     if (gameOver === true) {
+      console.log(leaderboard);
       checkHighscore();
     }
   }, [gameOver]);
@@ -36,6 +38,8 @@ function Highscores(props) {
 
   const checkHighscore = () => {
     let userTime = minute + String(timer).padStart(4, "0");
+    console.log(userTime);
+    console.log(leaderboard);
 
     if (userTime <= leaderboard[4].time) {
       setNewHighscore(true);
@@ -47,12 +51,17 @@ function Highscores(props) {
 
     let newTime = minute + String(timer).padStart(4, "0");
 
-    setDoc(doc(db, "Highscores", "AA"), {
+    const leaderboardDocRef = doc(db, "Highscores", leaderboard[4].id);
+    console.log("H");
+    console.log(leaderboardDocRef);
+    const leaderboardData = {
       name: e.target.name.value,
       minute: parseInt(minute),
       seconds: parseFloat(timer),
       time: parseFloat(newTime),
-    });
+    };
+
+    updateDoc(leaderboardDocRef, leaderboardData);
 
     setNewHighscore(false);
   };
