@@ -5,6 +5,9 @@ import background from "./Assets/bg1.jpeg";
 import { useEffect, useState, useRef } from "react";
 import db from "./firebase";
 import { collection, doc, onSnapshot } from "firebase/firestore";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 function App() {
   const ref = useRef(null);
@@ -21,6 +24,10 @@ function App() {
   const [minute, setMinute] = useState(1);
 
   const [gameOver, setGameOver] = useState(false);
+
+  useEffect(() => {
+    console.log(coords.y * 100);
+  }, [coords]);
 
   // sets the timer
   useEffect(() => {
@@ -50,10 +57,14 @@ function App() {
   }, []);
 
   const clicked = e => {
-    setCoords({
-      x: e.pageX / ref.current.offsetWidth,
-      y: e.pageY / ref.current.offsetHeight,
-    });
+    const containerRect = ref.current.getBoundingClientRect();
+    const offsetX = e.clientX - containerRect.left;
+    const offsetY = e.clientY - containerRect.top;
+    const x = offsetX / containerRect.width;
+    const y = offsetY / containerRect.height;
+
+    setCoords({ x, y });
+
     setUserclick(!userclick);
   };
 
@@ -82,32 +93,42 @@ function App() {
   return (
     <div className="App">
       <Header char={char} timer={timer} minute={minute} />
-
-      <div className="Main">
-        <Highscores gameOver={gameOver} timer={timer} minute={minute} />
-        <div className="imageContainer" ref={ref}>
-          <img className="wally" src={background} alt="sdf" onClick={clicked} />
-          {userclick ? (
-            <div
-              style={{
-                left: coords.x * ref.current.offsetWidth,
-                top: coords.y * ref.current.offsetHeight,
-              }}
-              className="dropdown"
-            >
-              <option onClick={selected} value="Wally">
-                Wally
-              </option>
-              <option onClick={selected} value="Odlaw">
-                Odlaw
-              </option>
-              <option onClick={selected} value="Wizard">
-                Wizard
-              </option>
+      <Container>
+        <Row>
+          <Col>
+            <div className="Main">
+              <Highscores gameOver={gameOver} timer={timer} minute={minute} />
+              <div className="imageContainer" ref={ref}>
+                <img
+                  className="wally"
+                  src={background}
+                  alt="sdf"
+                  onClick={clicked}
+                />
+                {userclick ? (
+                  <div
+                    style={{
+                      left: coords.x * ref.current.offsetWidth,
+                      top: coords.y * ref.current.offsetHeight,
+                    }}
+                    className="dropdown"
+                  >
+                    <option onClick={selected} value="Wally">
+                      Wally
+                    </option>
+                    <option onClick={selected} value="Odlaw">
+                      Odlaw
+                    </option>
+                    <option onClick={selected} value="Wizard">
+                      Wizard
+                    </option>
+                  </div>
+                ) : null}
+              </div>
             </div>
-          ) : null}
-        </div>
-      </div>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
 }
