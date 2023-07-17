@@ -1,7 +1,7 @@
 import "./App.css";
 import Header from "./Components/Header";
 import Highscores from "./Components/Highscores";
-import background from "./Assets/bg1.jpeg";
+import background from "./Assets/bg1.jpg";
 import { useEffect, useState, useRef } from "react";
 import db from "./firebase";
 import { collection, doc, onSnapshot } from "firebase/firestore";
@@ -26,7 +26,8 @@ function App() {
   const [gameOver, setGameOver] = useState(false);
 
   useEffect(() => {
-    console.log(coords.y * 100);
+    console.log(coords.y * 100 + " y");
+    console.log(coords.x * 100 + " x");
   }, [coords]);
 
   // sets the timer
