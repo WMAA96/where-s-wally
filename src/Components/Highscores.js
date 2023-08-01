@@ -72,9 +72,9 @@ function Highscores(props) {
         <div className="modal">
           <div className="modal-content">
             {!newHighscore ? (
-              <div>
+              <div className="hiscoresContent">
                 <span className="close">x</span>
-                <h1>Leaderboard</h1>
+                <h1>Hiscores</h1>
                 <table>
                   <tbody>
                     <tr>
@@ -84,7 +84,7 @@ function Highscores(props) {
                     {leaderboard.map(score => {
                       return (
                         <tr key={score.id}>
-                          <td>{score.name}</td>
+                          <td>{score.name} </td>
                           <td>
                             {score.minute}m{score.seconds}s
                           </td>
