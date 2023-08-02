@@ -17,7 +17,7 @@ function App() {
 
   const [char, setChar] = useState([]);
 
-  const [timer, setTimer] = useState(0);
+  const [timer, setTimer] = useState(58);
   const [minute, setMinute] = useState(1);
 
   const [gameOver, setGameOver] = useState(false);

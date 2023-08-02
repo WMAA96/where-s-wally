@@ -32,7 +32,9 @@ function Header(props) {
       <div className="timer">
         <h1 className="timer">
           <span className="timerText">Timer: </span> {minute}m{" "}
+          {/* pad the timer with 0's if necessary*/}
           {timer < 10 ? 0 : null}
+          {timer === 0 ? ".0" : null}
           {timer}s{" "}
         </h1>
       </div>

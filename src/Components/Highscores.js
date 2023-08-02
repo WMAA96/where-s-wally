@@ -67,6 +67,10 @@ function Highscores(props) {
     setNewHighscore(false);
   };
 
+  function restartGame() {
+    window.location.reload(false);
+  }
+
   return (
     <div>
       {gameOver ? (
@@ -74,7 +78,9 @@ function Highscores(props) {
           <div className="modal-content">
             {!newHighscore ? (
               <div className="hiscoresContent">
-                <span className="close">x</span>
+                <span className="close" onClick={restartGame}>
+                  x
+                </span>
                 <h1 className="hiscoresHeader">Hiscores</h1>
                 <table>
                   <tbody>
@@ -94,11 +100,16 @@ function Highscores(props) {
                     })}
                   </tbody>
                 </table>
+                <button className="sqButton" onClick={restartGame}>
+                  Restart
+                </button>
               </div>
             ) : (
               // what returns if user breaks the highscore
               <div>
-                <span className="close">x</span>
+                <span className="close" onClick={restartGame}>
+                  x
+                </span>
                 <h1>Congratulations, your score belongs in our highscores!</h1>
                 <form onSubmit={handleSubmit}>
                   <label>
