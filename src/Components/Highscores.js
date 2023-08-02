@@ -9,6 +9,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import Button from "react-bootstrap/Button";
 
 function Highscores(props) {
   const { gameOver, timer, minute } = props;
@@ -74,7 +75,7 @@ function Highscores(props) {
             {!newHighscore ? (
               <div className="hiscoresContent">
                 <span className="close">x</span>
-                <h1>Hiscores</h1>
+                <h1 className="hiscoresHeader">Hiscores</h1>
                 <table>
                   <tbody>
                     <tr>

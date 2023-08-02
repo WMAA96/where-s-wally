@@ -2,14 +2,12 @@ import Wally from "../Assets/Wally.jpg";
 import odlaw from "../Assets/Odlaw.jpg";
 import Wizard from "../Assets/Wizard.jpg";
 import tick from "../Assets/tick.jpg";
-import Navbar from "react-bootstrap/Navbar";
-import Container from "react-bootstrap/Container";
 
 function Header(props) {
   const { char, timer, minute } = props;
 
   return (
-    <Navbar>
+    <div className="header">
       <div className="charList">
         {char.map(char => {
           return (
@@ -38,7 +36,7 @@ function Header(props) {
           {timer}s{" "}
         </h1>
       </div>
-    </Navbar>
+    </div>
   );
 }
 
