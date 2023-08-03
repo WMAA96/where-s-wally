@@ -9,12 +9,11 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
 
 function Highscores(props) {
   const { gameOver, timer, minute } = props;
 
-  const [newHighscore, setNewHighscore] = useState(false);
+  const [newHighscore, setNewHighscore] = useState(true);
 
   const [leaderboard, setLeaderboard] = useState([]);
 
@@ -106,17 +105,23 @@ function Highscores(props) {
               </div>
             ) : (
               // what returns if user breaks the highscore
-              <div>
+              <div className="hiscoresHeader">
                 <span className="close" onClick={restartGame}>
                   x
                 </span>
-                <h1>Congratulations, your score belongs in our highscores!</h1>
+                <h1 className="hiscoresHeader">
+                  Congratulations, your score belongs in our highscores!
+                </h1>
                 <form onSubmit={handleSubmit}>
                   <label>
-                    Name:
-                    <input type="text" name="name" />
+                    <input
+                      className="nameInput"
+                      placeholder="Name"
+                      type="text"
+                      name="name"
+                    />
                   </label>
-                  <input type="submit" value="Submit" />
+                  <input className="sqButton" type="submit" value="Submit" />
                 </form>
               </div>
             )}

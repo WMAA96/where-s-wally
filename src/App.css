@@ -114,15 +114,22 @@ option {
   width: 25%; /* Could be more or less, depending on screen size */
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 970px) {
   .modal-content {
     width: 50%;
+  }
+}
+
+@media only screen and (max-width: 470px) {
+  .modal-content {
+    width: 90%;
   }
 }
 
 /* The Close Button */
 .close {
   color: #aaa;
+  float: right;
   margin-left: auto;
   font-size: 28px;
   font-weight: bold;
@@ -164,4 +171,23 @@ th {
 .sqButton:hover {
   background-color: #db3d3d;
   color: #363636;
+}
+
+.nameInput {
+  height: 38px;
+  padding: 0.375rem 0.75rem;
+  box-sizing: border-box;
+  border: solid #db3d3d 1px;
+}
+
+.nameInput::placeholder {
+  font-weight: bold;
+  opacity: 0.5;
+  color: #db3d3d;
+}
+
+.nameInput:focus {
+  border-color: #db3d3d;
+  outline: 0;
+  box-shadow: 0px 0px 3px #ff894c;
 }
