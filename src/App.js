@@ -4,7 +4,7 @@ import Highscores from "./Components/Highscores";
 import background from "./Assets/bg1.jpg";
 import { useEffect, useState, useRef } from "react";
 import db from "./firebase";
-import { collection, doc, onSnapshot } from "firebase/firestore";
+import { collection, doc, onSnapshot, getDocs } from "firebase/firestore";
 
 function App() {
   const ref = useRef(null);
@@ -47,11 +47,15 @@ function App() {
 
   //grabs character locations and highscores
   useEffect(() => {
-    const unsub = onSnapshot(collection(db, "Characters"), snapshot => {
-      setChar(snapshot.docs.map(doc => ({ ...doc.data(), found: false })));
-    });
+    const charactersData = getDocs(collection(db, "Characters"));
 
-    return unsub;
+    charactersData.then(snapshot => {
+      const characters = snapshot.docs.map(doc => ({
+        ...doc.data(),
+        found: false,
+      }));
+      setChar(characters);
+    });
   }, []);
 
   const clicked = e => {
