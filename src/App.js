@@ -71,6 +71,7 @@ function App() {
   };
 
   const selected = e => {
+    console.log(e.target.value);
     const newChar = [...char];
     const selectedChar = newChar.find(cname => cname.name === e.target.value);
 
@@ -113,15 +114,37 @@ function App() {
                 }}
                 className="dropdown"
               >
-                <option onClick={selected} value="Wally">
-                  Wally
-                </option>
-                <option onClick={selected} value="Odlaw">
-                  Odlaw
-                </option>
-                <option onClick={selected} value="Wizard">
-                  Wizard
-                </option>
+                <div className="charOption">
+                  <img
+                    src={require(`./Assets/Wally.jpg`)}
+                    className="dropdownCharImg"
+                    alt={char.name}
+                  />
+                  <option onClick={selected} value="Wally">
+                    Wally
+                  </option>
+                </div>
+
+                <div className="charOption">
+                  <img
+                    src={require(`./Assets/Odlaw.jpg`)}
+                    className="dropdownCharImg"
+                    alt={char.name}
+                  />
+                  <option onClick={selected} value="Odlaw">
+                    Odlaw
+                  </option>
+                </div>
+                <div className="charOption">
+                  <img
+                    src={require(`./Assets/Wizard.jpg`)}
+                    className="dropdownCharImg"
+                    alt={char.name}
+                  />
+                  <option onClick={selected} value="Wizard">
+                    Wizard
+                  </option>
+                </div>
               </div>
             ) : null}
           </div>
