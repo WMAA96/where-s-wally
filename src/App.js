@@ -71,6 +71,7 @@ function App() {
   };
 
   const selected = character => {
+    console.log(char);
     console.log(character);
     const newChar = [...char];
     const selectedChar = newChar.find(cname => cname.name === character);
@@ -114,40 +115,22 @@ function App() {
                 }}
                 className="dropdown"
               >
-                <div className="charOption">
-                  <img
-                    onClick={() => selected("Wally")}
-                    src={require(`./Assets/Wally.jpg`)}
-                    className="dropdownCharImg"
-                    alt={char.name}
-                  />
-                  <option onClick={() => selected("Wally")} value="Wally">
-                    Wally
-                  </option>
-                </div>
-
-                <div className="charOption">
-                  <img
-                    onClick={() => selected("Odlaw")}
-                    src={require(`./Assets/Odlaw.jpg`)}
-                    className="dropdownCharImg"
-                    alt={char.name}
-                  />
-                  <option onClick={() => selected("Odlaw")} value="Odlaw">
-                    Odlaw
-                  </option>
-                </div>
-                <div className="charOption">
-                  <img
-                    onClick={() => selected("Wizard")}
-                    src={require(`./Assets/Wizard.jpg`)}
-                    className="dropdownCharImg"
-                    alt={char.name}
-                  />
-                  <option onClick={() => selected("Wizard")} value="Wizard">
-                    Wizard
-                  </option>
-                </div>
+                {char.map(char => (
+                  <div className={`charOption ${char.found}`} key={char.name}>
+                    <img
+                      onClick={() => selected(char.name)}
+                      src={require(`./Assets/${char.name}.jpg`)}
+                      className="dropdownCharImg"
+                      alt={char.name}
+                    />
+                    <option
+                      onClick={() => selected(char.name)}
+                      value={char.name}
+                    >
+                      {char.name}
+                    </option>
+                  </div>
+                ))}
               </div>
             ) : null}
           </div>
