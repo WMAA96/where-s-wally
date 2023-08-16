@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 function Highscores(props) {
   const { gameOver, timer, minute } = props;
 
-  const [newHighscore, setNewHighscore] = useState(true);
+  const [newHighscore, setNewHighscore] = useState(false);
 
   const [leaderboard, setLeaderboard] = useState([]);
 
@@ -66,9 +66,9 @@ function Highscores(props) {
     setNewHighscore(false);
   };
 
-  function restartGame() {
+  const restartGame = () => {
     window.location.reload(false);
-  }
+  };
 
   return (
     <div>

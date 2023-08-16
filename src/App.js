@@ -70,10 +70,10 @@ function App() {
     setUserclick(!userclick);
   };
 
-  const selected = e => {
-    console.log(e.target.value);
+  const selected = character => {
+    console.log(character);
     const newChar = [...char];
-    const selectedChar = newChar.find(cname => cname.name === e.target.value);
+    const selectedChar = newChar.find(cname => cname.name === character);
 
     if (
       coords.x * 100 <= selectedChar.X + 1.5 &&
@@ -116,32 +116,35 @@ function App() {
               >
                 <div className="charOption">
                   <img
+                    onClick={() => selected("Wally")}
                     src={require(`./Assets/Wally.jpg`)}
                     className="dropdownCharImg"
                     alt={char.name}
                   />
-                  <option onClick={selected} value="Wally">
+                  <option onClick={() => selected("Wally")} value="Wally">
                     Wally
                   </option>
                 </div>
 
                 <div className="charOption">
                   <img
+                    onClick={() => selected("Odlaw")}
                     src={require(`./Assets/Odlaw.jpg`)}
                     className="dropdownCharImg"
                     alt={char.name}
                   />
-                  <option onClick={selected} value="Odlaw">
+                  <option onClick={() => selected("Odlaw")} value="Odlaw">
                     Odlaw
                   </option>
                 </div>
                 <div className="charOption">
                   <img
+                    onClick={() => selected("Wizard")}
                     src={require(`./Assets/Wizard.jpg`)}
                     className="dropdownCharImg"
                     alt={char.name}
                   />
-                  <option onClick={selected} value="Wizard">
+                  <option onClick={() => selected("Wizard")} value="Wizard">
                     Wizard
                   </option>
                 </div>
