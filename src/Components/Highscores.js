@@ -6,7 +6,6 @@ import {
   onSnapshot,
   orderBy,
   query,
-  setDoc,
 } from "firebase/firestore";
 import { useEffect, useState } from "react";
 
@@ -19,13 +18,12 @@ function Highscores(props) {
 
   useEffect(() => {
     if (gameOver === true) {
-      console.log(leaderboard);
       checkHighscore();
     }
   }, [gameOver]);
 
   useEffect(() => {
-    const getLeaderboard = onSnapshot(
+    const unsubLeaderboard = onSnapshot(
       query(collection(db, "Highscores"), orderBy("time")),
       snapshot => {
         setLeaderboard(
@@ -33,15 +31,13 @@ function Highscores(props) {
         );
       }
     );
-    return getLeaderboard;
+    return () => unsubLeaderboard();
   }, []);
 
   const checkHighscore = () => {
     let userTime = minute + String(timer).padStart(4, "0");
-    console.log(userTime);
-    console.log(leaderboard);
 
-    if (userTime <= leaderboard[4].time) {
+    if (userTime <= leaderboard[[leaderboard.length - 1]].time) {
       setNewHighscore(true);
     }
   };
@@ -51,9 +47,12 @@ function Highscores(props) {
 
     let newTime = minute + String(timer).padStart(4, "0");
 
-    const leaderboardDocRef = doc(db, "Highscores", leaderboard[4].id);
-    console.log("H");
-    console.log(leaderboardDocRef);
+    const leaderboardDocRef = doc(
+      db,
+      "Highscores",
+      leaderboard[[leaderboard.length - 1]].id
+    );
+
     const leaderboardData = {
       name: e.target.name.value,
       minute: parseInt(minute),
@@ -81,10 +80,11 @@ function Highscores(props) {
                   x
                 </span>
                 <h1 className="hiscoresHeader">Hiscores</h1>
+
                 <table>
                   <tbody>
                     <tr>
-                      <th>name</th>
+                      <th>Name</th>
                       <th>Time</th>
                     </tr>
                     {leaderboard.map(score => {

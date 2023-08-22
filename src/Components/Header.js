@@ -1,6 +1,3 @@
-import Wally from "../Assets/Wally.jpg";
-import odlaw from "../Assets/Odlaw.jpg";
-import Wizard from "../Assets/Wizard.jpg";
 import tick from "../Assets/tick.jpg";
 
 function Header(props) {

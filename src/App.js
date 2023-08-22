@@ -4,7 +4,7 @@ import Highscores from "./Components/Highscores";
 import background from "./Assets/bg1.jpg";
 import { useEffect, useState, useRef } from "react";
 import db from "./firebase";
-import { collection, doc, onSnapshot, getDocs } from "firebase/firestore";
+import { collection, getDocs } from "firebase/firestore";
 
 function App() {
   const ref = useRef(null);
@@ -17,16 +17,19 @@ function App() {
 
   const [char, setChar] = useState([]);
 
-  const [timer, setTimer] = useState(58);
-  const [minute, setMinute] = useState(1);
+  const [timer, setTimer] = useState(0);
+  const [minute, setMinute] = useState(0);
 
   const [gameOver, setGameOver] = useState(false);
 
+  /**
+   * 
+   
   useEffect(() => {
     console.log(coords.y * 100 + " y");
     console.log(coords.x * 100 + " x");
   }, [coords]);
-
+*/
   // sets the timer
   useEffect(() => {
     const interval = setInterval(() => {
@@ -71,8 +74,6 @@ function App() {
   };
 
   const selected = character => {
-    console.log(char);
-    console.log(character);
     const newChar = [...char];
     const selectedChar = newChar.find(cname => cname.name === character);
 
@@ -82,7 +83,6 @@ function App() {
       coords.y * 100 <= selectedChar.Y + 3 &&
       coords.y * 100 >= selectedChar.Y - 3
     ) {
-      console.log(minute + "m" + (timer < 10 ? "0" + timer : timer) + "s");
       selectedChar.found = true;
 
       setChar(newChar);
@@ -97,7 +97,7 @@ function App() {
   return (
     <div className="App">
       <Header char={char} timer={timer} minute={minute} />
-      <div className="gg">
+      <div>
         <div className="Main">
           <Highscores gameOver={gameOver} timer={timer} minute={minute} />
           <div className="imageContainer" ref={ref}>
